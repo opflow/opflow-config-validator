@@ -4,6 +4,7 @@ import com.devebot.opflow.exception.OpflowConfigValidationException;
 import com.devebot.opflow.supports.OpflowJsonTool;
 import com.devebot.opflow.supports.OpflowObjectTree;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;
@@ -52,6 +53,11 @@ public class OpflowConfigValidator implements OpflowConfig.Validator {
                 .toMap();
         
         OpflowConfigValidator validator = new OpflowConfigValidator(OpflowConfigValidator.class.getResourceAsStream("/schema.json"));
-        validator.validate(data);
+        Object reasons = validator.validate(data);
+        if (reasons instanceof List) {
+            for (Object reason: (List) reasons) {
+                System.out.println("[-] " + reason.toString());
+            }
+        }
     }
 }
