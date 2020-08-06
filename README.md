@@ -1,1 +1,1 @@
-# opflow-json-validator
+# opflow-config-validator

@@ -21,10 +21,7 @@ public class OpflowConfigValidator implements OpflowConfig.Validator {
     private final List<Schema> schemas = new LinkedList<>();
 
     public static OpflowConfigValidator getCommanderConfigValidator(InputStream ... schemaInputStreams) {
-        InputStream[] newargs = new InputStream[schemaInputStreams.length + 1];
-        newargs[0] = OpflowConfigValidator.class.getResourceAsStream("/config-schema.json");
-        System.arraycopy(schemaInputStreams, 0, newargs, 1, schemaInputStreams.length);
-        return new OpflowConfigValidator(newargs);
+        return new OpflowConfigValidator(mergeInputStreamArray("/config-schema.json", schemaInputStreams));
     }
     
     public OpflowConfigValidator(InputStream ... schemaInputStreams) {
@@ -58,6 +55,13 @@ public class OpflowConfigValidator implements OpflowConfig.Validator {
         return allMessages;
     }
 
+    private static InputStream[] mergeInputStreamArray(String schemaFile, InputStream ... schemaInputStreams) {
+        InputStream[] newargs = new InputStream[schemaInputStreams.length + 1];
+        newargs[0] = OpflowConfigValidator.class.getResourceAsStream(schemaFile);
+        System.arraycopy(schemaInputStreams, 0, newargs, 1, schemaInputStreams.length);
+        return newargs;
+    }
+    
     public static void main(String[] argv) throws Exception {
         Map<String, Object> data = OpflowObjectTree.buildMap()
                 .put("id", 1)
