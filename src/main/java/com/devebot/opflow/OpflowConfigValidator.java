@@ -21,7 +21,11 @@ public class OpflowConfigValidator implements OpflowConfig.Validator {
     private final List<Schema> schemas = new LinkedList<>();
 
     public static OpflowConfigValidator getCommanderConfigValidator(InputStream ... schemaInputStreams) {
-        return new OpflowConfigValidator(mergeInputStreamArray("/config-schema.json", schemaInputStreams));
+        return new OpflowConfigValidator(mergeInputStreamArray("/opflow-commander-schema.json", schemaInputStreams));
+    }
+    
+    public static OpflowConfigValidator getServerletConfigValidator(InputStream ... schemaInputStreams) {
+        return new OpflowConfigValidator(mergeInputStreamArray("/opflow-serverlet-schema.json", schemaInputStreams));
     }
     
     public OpflowConfigValidator(InputStream ... schemaInputStreams) {

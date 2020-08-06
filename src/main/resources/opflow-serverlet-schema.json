@@ -1,0 +1,82 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Serverlet Configuration",
+    "description": "OpflowServerlet Configuration",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "discoveryClient": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "hostAndPorts": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "amqpWorker": {
+            "$ref": "#/definitions/amqpWorker"
+        },
+        "httpWorker": {
+            "$ref": "#/definitions/httpWorker"
+        },
+        "mqttWorker": {
+            "$ref": "#/definitions/mqttWorker"
+        },
+        "subscriber": {
+            "$ref": "#/definitions/subscriber"
+        },
+        "promExporter": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "ports": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "number",
+                        "minimum": 0,
+                        "exclusiveMinimum": true
+                    }
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false,
+    "definitions": {
+        "amqpWorker": {
+            "type": "object",
+            "properties": {
+            }
+        },
+        "httpWorker": {
+            "type": "object",
+            "properties": {
+            }
+        },
+        "mqttWorker": {
+            "type": "object",
+            "properties": {
+            }
+        },
+        "subscriber": {
+            "type": "object",
+            "properties": {
+            }
+        }
+    }
+}
