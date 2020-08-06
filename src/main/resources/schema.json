@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Personal",
+    "description": "Information of a person",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "The unique identifier for a person",
+            "type": "integer"
+        },
+        "fullname": {
+            "description": "Name of the person",
+            "type": "string"
+        },
+        "age": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true
+        }
+    },
+    "required": ["id", "fullname", "age"]
+}
