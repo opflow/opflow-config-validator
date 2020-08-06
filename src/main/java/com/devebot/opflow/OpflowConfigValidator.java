@@ -4,6 +4,7 @@ import com.devebot.opflow.exception.OpflowConfigValidationException;
 import com.devebot.opflow.supports.OpflowJsonTool;
 import com.devebot.opflow.supports.OpflowObjectTree;
 import java.io.InputStream;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.everit.json.schema.Schema;
@@ -17,32 +18,44 @@ import org.json.JSONTokener;
  */
 public class OpflowConfigValidator implements OpflowConfig.Validator {
 
-    private Schema schema;
+    private final List<Schema> schemas = new LinkedList<>();
 
-    public OpflowConfigValidator() {
-        this(OpflowConfigValidator.class.getResourceAsStream("/config-schema.json"));
+    public static OpflowConfigValidator getCommanderConfigValidator(InputStream ... schemaInputStreams) {
+        InputStream[] newargs = new InputStream[schemaInputStreams.length + 1];
+        newargs[0] = OpflowConfigValidator.class.getResourceAsStream("/config-schema.json");
+        System.arraycopy(schemaInputStreams, 0, newargs, 1, schemaInputStreams.length);
+        return new OpflowConfigValidator(newargs);
     }
-
-    public OpflowConfigValidator(InputStream schemaInputStream) {
-        JSONObject jsonSchema = new JSONObject(new JSONTokener(schemaInputStream));
-        schema = SchemaLoader.load(jsonSchema);
+    
+    public OpflowConfigValidator(InputStream ... schemaInputStreams) {
+        for (InputStream schemaInputStream: schemaInputStreams) {
+            JSONObject jsonSchema = new JSONObject(new JSONTokener(schemaInputStream));
+            schemas.add(SchemaLoader.load(jsonSchema));
+        }
     }
 
     @Override
     public Object validate(Map<String, Object> configuration) throws OpflowConfigValidationException {
         JSONObject jsonSubject = new JSONObject(new JSONTokener(OpflowJsonTool.toString(configuration)));
+
+        List<String> allMessages = new LinkedList<>();
+        for (Schema schema: schemas) {
+            try {
+                schema.validate(jsonSubject);
+            }
+            catch (org.everit.json.schema.ValidationException ex) {
+                allMessages.addAll(ex.getAllMessages());
+            }
+            catch (Exception ex) {
+                throw new OpflowConfigValidationException(ex);
+            }
+        }
         
-        try {
-            schema.validate(jsonSubject);
+        if (allMessages.isEmpty()) {
+            return null;
         }
-        catch (org.everit.json.schema.ValidationException ex) {
-            return ex.getAllMessages();
-        }
-        catch (Exception ex) {
-            throw new OpflowConfigValidationException(ex);
-        }
-        
-        return null;
+
+        return allMessages;
     }
 
     public static void main(String[] argv) throws Exception {
