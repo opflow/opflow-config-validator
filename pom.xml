@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.devebot.opflow</groupId>
-    <artifactId>opflow-json-validator</artifactId>
+    <artifactId>opflow-config-validator</artifactId>
     <version>0.3.2-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>opflow-json-validator</name>
+    <name>opflow-config-validator</name>
     <description>Opflow Prometheus Exporter</description>
-    <url>https://github.com/opflow/opflow-json-validator</url>
+    <url>https://github.com/opflow/opflow-config-validator</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -23,9 +23,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git://github.com/opflow/opflow-json-validator.git</connection>
-        <developerConnection>scm:git:ssh://github.com:opflow/opflow-json-validator.git</developerConnection>
-        <url>https://github.com/opflow/opflow-json-validator/tree/master</url>
+        <connection>scm:git:git://github.com/opflow/opflow-config-validator.git</connection>
+        <developerConnection>scm:git:ssh://github.com:opflow/opflow-config-validator.git</developerConnection>
+        <url>https://github.com/opflow/opflow-config-validator/tree/master</url>
     </scm>
     
     <properties>
@@ -222,7 +222,7 @@
                             <verbose>false</verbose>
                             <dateFormat>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</dateFormat>
                             <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                            <generateGitPropertiesFilename>${project.build.outputDirectory}/META-INF/scm/com.devebot.opflow/opflow-json-validator/git-info.json</generateGitPropertiesFilename>
+                            <generateGitPropertiesFilename>${project.build.outputDirectory}/META-INF/scm/com.devebot.opflow/opflow-config-validator/git-info.json</generateGitPropertiesFilename>
                             <includeOnlyProperties>
                                 <includeOnlyProperty>^git.build.(time|version)$</includeOnlyProperty>
                                 <includeOnlyProperty>^git.commit.id$</includeOnlyProperty>
