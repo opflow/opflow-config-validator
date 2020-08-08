@@ -23,11 +23,15 @@ public class OpflowConfigValidator implements OpflowConfig.Validator {
     public static OpflowConfigValidator getCommanderConfigValidator(InputStream ... schemaInputStreams) {
         return new OpflowConfigValidator(mergeInputStreamArray("/opflow-commander-schema.json", schemaInputStreams));
     }
-    
+
     public static OpflowConfigValidator getServerletConfigValidator(InputStream ... schemaInputStreams) {
         return new OpflowConfigValidator(mergeInputStreamArray("/opflow-serverlet-schema.json", schemaInputStreams));
     }
-    
+
+    public static OpflowConfigValidator getUserDefinedConfigValidator(InputStream ... schemaInputStreams) {
+        return new OpflowConfigValidator(schemaInputStreams);
+    }
+
     public OpflowConfigValidator(InputStream ... schemaInputStreams) {
         for (InputStream schemaInputStream: schemaInputStreams) {
             JSONObject jsonSchema = new JSONObject(new JSONTokener(schemaInputStream));
@@ -65,7 +69,7 @@ public class OpflowConfigValidator implements OpflowConfig.Validator {
         System.arraycopy(schemaInputStreams, 0, newargs, 1, schemaInputStreams.length);
         return newargs;
     }
-    
+
     public static void main(String[] argv) throws Exception {
         Map<String, Object> data = OpflowObjectTree.buildMap()
                 .put("id", 1)

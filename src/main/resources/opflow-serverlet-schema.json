@@ -22,18 +22,6 @@
                 }
             }
         },
-        "amqpWorker": {
-            "$ref": "#/definitions/amqpWorker"
-        },
-        "httpWorker": {
-            "$ref": "#/definitions/httpWorker"
-        },
-        "mqttWorker": {
-            "$ref": "#/definitions/mqttWorker"
-        },
-        "subscriber": {
-            "$ref": "#/definitions/subscriber"
-        },
         "promExporter": {
             "type": "object",
             "properties": {
@@ -54,6 +42,18 @@
                 }
             },
             "additionalProperties": false
+        },
+        "amqpWorker": {
+            "$ref": "#/definitions/amqpWorker"
+        },
+        "httpWorker": {
+            "$ref": "#/definitions/httpWorker"
+        },
+        "mqttWorker": {
+            "$ref": "#/definitions/mqttWorker"
+        },
+        "subscriber": {
+            "$ref": "#/definitions/subscriber"
         }
     },
     "additionalProperties": false,
@@ -61,6 +61,38 @@
         "amqpWorker": {
             "type": "object",
             "properties": {
+                "appId": {
+                    "type": "string"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "number",
+                    "minimum": 0,
+                    "exclusiveMinimum": true
+                },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "virtualHost": {
+                    "type": "string"
+                },
+                "exchangeName": {
+                    "type": "string"
+                },
+                "routingKey": {
+                    "type": "string"
+                },
+                "responseName": {
+                    "type": "string"
+                },
+                "operatorName": {
+                    "type": "string"
+                }
             }
         },
         "httpWorker": {
@@ -76,6 +108,38 @@
         "subscriber": {
             "type": "object",
             "properties": {
+                "appId": {
+                    "type": "string"
+                },
+                "host": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "number",
+                    "minimum": 0,
+                    "exclusiveMinimum": true
+                },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "virtualHost": {
+                    "type": "string"
+                },
+                "exchangeName": {
+                    "type": "string"
+                },
+                "routingKey": {
+                    "type": "string"
+                },
+                "subscriberName": {
+                    "type": "string"
+                },
+                "recyclebinName": {
+                    "type": "string"
+                }
             }
         }
     }
